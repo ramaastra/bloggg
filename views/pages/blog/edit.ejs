@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <%- include("../../setups/head") %>
+</head>
+<body>
+  <%- include("../../components/navbar") %>
+
+  <div class="container-fluid p-5">
+    <h1 class="display-6 text-center">
+      Edit Blog "<span class="fw-semibold"><%= blog.title %></span>"
+    </h1>
+    <form class="mt-4 d-flex justify-content-between gap-md-4 flex-column flex-md-row">
+      <div class="w-100 w-md-50">
+        <div class="mb-3">
+          <label for="blogTitle" class="form-label fw-semibold">Judul/Kategori</label>
+          <div class="input-group">
+            <input id="blogTitle" type="text" class="form-control w-50" placeholder="Tuliskan judul blogmu">
+            <select class="form-select" id="blogCategory">
+              <option value="" selected disabled>Kategori</option>
+              <% categories.forEach(category => { %>
+                <option value="<%= category.id %>">
+                  <%= category.name %>
+                </option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3 mb-md-0">
+          <label for="blogBody" class="form-label fw-semibold">Isi Konten</label>
+          <textarea class="form-control" id="blogBody" rows="6" placeholder="Tuliskan isi blogmu"><%- blog.body %></textarea>
+        </div>
+      </div>
+      <div class="w-100 w-md-50">
+        <label for="img" class="form-label fw-semibold">Gambar</label>
+        <img id="uploadPreview" height="200" class="mb-2 w-100 rounded object-fit-cover" src="/uploads/<%= blog.image %>">
+        <input name="img" type="file" accept="image/*" class="form-control" id="img">
+      </div>
+    </form>
+    <div class="mt-4">
+      <button type="submit" class="btn btn-primary w-100">
+        Perbarui Blog
+      </button>
+    </div>
+  </div>
+
+  <script src="/scripts/imagePreview.js"></script>
+
+  <%- include("../../setups/script") %>
+</body>
+</html>

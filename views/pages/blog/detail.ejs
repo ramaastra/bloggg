@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <%- include("../../setups/head") %>
+
+  <style>
+    #blog, #other-blogs {
+      width: 100%;
+    }
+
+    @media only screen and (min-width: 992px) {
+      #blog {
+        width: 75%;
+      }
+      #other-blogs {
+        width: 25%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%- include("../../components/navbar") %>
+
+  <div class="container-fluid p-5 d-flex gap-4 flex-column flex-lg-row">
+    <div id="blog" class="border-primary">
+      <p class="m-0 text-primary fw-semibold"><%= blog.category.name.toUpperCase() %></p>
+      <h1>
+        <%= blog.title %>
+        <a href="/blog/edit/<%= blog.id %>" class="btn btn-outline-warning btn-sm ms-2">
+          <i class="bi bi-pencil-square"></i>
+          Edit
+        </a>
+      </h1>
+      <p class="text-body-tertiary">
+        Ditulis oleh
+        <span class="fw-semibold"><%= blog.author.name %></span>
+      </p>
+      <img src="/uploads/<%= blog.image %>" alt="<%= blog.title %>" class="w-100 object-fit-cover rounded" height="400">
+      <p class="mt-4">
+        <%- blog.body.replace(/\n\n/g, "</p><p>") %>
+      </p>
+    </div>
+    <div id="other-blogs" class="p-3 card">
+      <h2>Baca Juga</h2>
+      <ul>
+        <% otherBlogs.forEach(blog => { %>
+          <li>
+            <a href="/blog/read/<%= blog.id %>"><%= blog.title %></a>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+
+  <%- include("../../setups/script") %>
+</body>
+</html>

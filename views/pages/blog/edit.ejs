@@ -19,11 +19,15 @@
             <select class="form-select" id="blogCategory">
               <option value="" disabled>Kategori</option>
               <% categories.forEach(category => { %>
-                <option value="<%= category.id %>"
-                  %<%= category.id === blog.category.id ? "selected" : "" %>  
-                >
-                  <%= category.name %>
-                </option>
+                <% if(category.id == blog.category.id) { %>
+                  <option selected value="<%= category.id %>">
+                    <%= category.name %>
+                  </option>
+                <% } else { %>
+                  <option value="<%= category.id %>">
+                    <%= category.name %>
+                  </option>
+                <% } %>
               <% }) %>
             </select>
           </div>

@@ -1,4 +1,5 @@
 const dummyBlogs = require('./dummyBlogs')
+const dummyCategories = require('./dummyCategories')
 
 class BlogController {
   static listPage = async(req, res) => {
@@ -17,13 +18,13 @@ class BlogController {
   }
 
   static createPage = async(req, res) => {
-    res.render('pages/blog/create')
+    res.render('pages/blog/create', { categories: dummyCategories })
   }
 
   static editPage = async(req, res) => {
     const blog = dummyBlogs
       .find(blog => blog.id == req.params.id)
-    res.render('pages/blog/edit', { blog })
+    res.render('pages/blog/edit', { blog, categories: dummyCategories })
   }
 }
 

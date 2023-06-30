@@ -20,7 +20,10 @@
     ">
       <%= blog.body %>
     </p>
-    <span class="badge bg-primary rounded-pill">
+    <span class="badge rounded-pill"
+      style="background-color: <%= blog.category.labelColor %>"
+    >
+      <i class="<%= blog.category.icon %>"></i>
       <%= blog.category.name %>
     </span>
   </div>

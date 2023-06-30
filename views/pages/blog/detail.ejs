@@ -23,7 +23,12 @@
 
   <div class="container-fluid p-5 d-flex gap-4 flex-column flex-lg-row">
     <div id="blog" class="border-primary">
-      <p class="m-0 text-primary fw-semibold"><%= blog.category.name.toUpperCase() %></p>
+      <span style="color: <%= blog.category.labelColor %>">
+        <p class="m-0 fw-semibold d-inline">
+          <%= blog.category.name.toUpperCase() %>
+        </p>
+        <i class="<%= blog.category.icon %>"></i>
+      </span>
       <h1>
         <%= blog.title %>
         <a href="/blog/edit/<%= blog.id %>" class="btn btn-outline-warning btn-sm ms-2">

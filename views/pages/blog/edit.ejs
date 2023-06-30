@@ -15,11 +15,13 @@
         <div class="mb-3">
           <label for="blogTitle" class="form-label fw-semibold">Judul/Kategori</label>
           <div class="input-group">
-            <input id="blogTitle" type="text" class="form-control w-50" placeholder="Tuliskan judul blogmu">
+            <input id="blogTitle" type="text" class="form-control w-50" placeholder="Tuliskan judul blogmu" value="<%= blog.title %>">
             <select class="form-select" id="blogCategory">
-              <option value="" selected disabled>Kategori</option>
+              <option value="" disabled>Kategori</option>
               <% categories.forEach(category => { %>
-                <option value="<%= category.id %>">
+                <option value="<%= category.id %>"
+                  %<%= category.id === blog.category.id ? "selected" : "" %>  
+                >
                   <%= category.name %>
                 </option>
               <% }) %>

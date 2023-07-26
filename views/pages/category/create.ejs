@@ -8,14 +8,17 @@
 
   <div class="container-fluid p-5 px-2 px-lg-5">
     <h1 class="display-6 text-center">Buat Kategori</h1>
-    <form class="w-75 mt-4 m-auto d-flex flex-column justify-content-center">
+    <form
+      class="w-75 mt-4 m-auto d-flex flex-column justify-content-center"
+      action="/category" method="post"
+    >
       <div class="mb-3">
         <label for="name" class="form-label fw-semibold">Nama Kategori</label>
-        <input id="name" type="text" class="form-control" placeholder="Psikologi">
+        <input name="name" id="name" type="text" class="form-control" placeholder="Psikologi">
       </div>
       <div class="mb-3">
         <label for="labelColor" class="form-label fw-semibold">Warna Label</label>
-        <input id="labelColor" type="color" class="form-control">
+        <input name="labelColor" id="labelColor" type="color" class="form-control">
       </div>
       <div class="mb-3">
         <label for="icon" class="form-label fw-semibold">
@@ -24,9 +27,9 @@
             <i class="bi bi-box-arrow-up-right"></i>
           </a>
         </label>
-        <input id="icon" type="text" class="form-control" placeholder="bi-person-heart">
+        <input name="icon" id="icon" type="text" class="form-control" placeholder="bi-person-heart">
       </div>
-      <button type="button" class="btn btn-primary mt-2">Tambahkan Kategori</button>
+      <button type="submit" class="btn btn-primary mt-2">Tambahkan Kategori</button>
     </form>
   </div>
 

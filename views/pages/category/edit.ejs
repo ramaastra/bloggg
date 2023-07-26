@@ -10,14 +10,17 @@
     <h1 class="display-6 text-center">
       Edit Kategori "<span class="fw-semibold"><%= category.name %></span>"
     </h1>
-    <form class="w-75 mt-4 m-auto d-flex flex-column justify-content-center">
+    <form
+      class="w-75 mt-4 m-auto d-flex flex-column justify-content-center"
+      action="/category/<%= category.id %>/edit" method="post"
+    >
       <div class="mb-3">
         <label for="name" class="form-label fw-semibold">Nama Kategori</label>
-        <input id="name" type="text" class="form-control" placeholder="Psikologi" value="<%= category.name %>">
+        <input name="name" id="name" type="text" class="form-control" placeholder="Psikologi" value="<%= category.name %>">
       </div>
       <div class="mb-3">
         <label for="labelColor" class="form-label fw-semibold">Warna Label</label>
-        <input id="labelColor" type="color" class="form-control" value="<%= category.labelColor %>">
+        <input name="labelColor" id="labelColor" type="color" class="form-control" value="<%= category.labelColor %>">
       </div>
       <div class="mb-3">
         <label for="icon" class="form-label fw-semibold">
@@ -26,9 +29,9 @@
             <i class="bi bi-box-arrow-up-right"></i>
           </a>
         </label>
-        <input id="icon" type="text" class="form-control" placeholder="bi-person-heart" value="<%= category.icon %>">
+        <input name="icon" id="icon" type="text" class="form-control" placeholder="bi-person-heart" value="<%= category.icon %>">
       </div>
-      <button type="button" class="btn btn-primary mt-2">Perbarui Kategori</button>
+      <button type="submit" class="btn btn-primary mt-2">Perbarui Kategori</button>
     </form>
   </div>
 

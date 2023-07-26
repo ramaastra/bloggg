@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <%- include("../../setups/head") %>
+
+  <style>
+    .category-label {
+      display: inline-block;
+      width: 50px;
+      border-radius: 5px;
+      color: white;
+      margin-top: 4px;
+    }
+
+    .table-responsive {
+      width: 100%;
+    }
+
+    .btn {
+
+    }
+
+    @media only screen and (min-width: 768px) {
+      .table-responsive {
+        width: 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%- include("../../components/navbar") %>
+
+  <div class="container-fluid p-5">
+    <h1 class="display-6 text-center">
+      Daftar Kategori
+    </h1>
+    <div class="mt-4">
+      <div class="table-responsive mx-auto d-flex flex-column align-items-end">
+        <table class="table table-stripped">
+          <thead class="text-center">
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Nama</th>
+              <th scope="col">Label</th>
+              <th scope="col">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <% categories.forEach(category => { %>
+              <tr>
+                <th scope="row"><%= category.id %></th>
+                <td><%= category.name %></td>
+                <td class="m-auto">
+                  <div class="category-label" style="background-color: <%= category.labelColor %>;">
+                    <i class="bi <%= category.icon %>"></i>
+                  </div>
+                </td>
+                <td class="d-flex gap-2 justify-content-center">
+                  <a href="/category/<%= category.id %>/edit" class="btn btn-sm btn-light">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <form method="post" action="">
+                    <button type="submit" class="btn btn-sm btn-light">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <a href="/category/add" class="btn btn-outline-primary">
+          Buat Kategori
+          <i class="bi bi-plus-circle"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <%- include("../../setups/script") %>
+</body>
+</html>

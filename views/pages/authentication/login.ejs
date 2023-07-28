@@ -5,8 +5,14 @@
 </head>
 <body>
   <%- include("../../components/navbar", { user }) %>
-
-  <div class="container-fluid p-5 d-flex justify-content-center">
+  
+  <div class="container-fluid p-5 d-flex flex-column justify-content-center align-items-center">
+    <% if(locals.newUser) { %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert" style="width: 30%">
+        <strong>Akun berhasil dibuat!</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %>
     <div class="card" style="min-width: 30%;">
       <h5 class="card-header display-6 fs-2 text-center px-4 py-3">
         Login ke Akunmu
@@ -15,7 +21,11 @@
         <form action="/login" method="post">
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input name="username" id="username" type="text" class="form-control">
+            <% if(locals.newUser) { %>
+              <input name="username" id="username" type="text" class="form-control" value="<%= newUser %>">
+            <% } else { %>
+              <input name="username" id="username" type="text" class="form-control">
+            <% } %>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>

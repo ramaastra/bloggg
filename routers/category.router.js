@@ -1,6 +1,11 @@
 const { Router } = require('express')
 const router = Router()
 const categoryController = require('../controllers/category.controller')
+const auth = require('../middlewares/authentication')
+const permit = require('../middlewares/authorization')
+
+router.use(auth)
+router.use(permit('ADMIN'))
 
 router.get('/category', categoryController.listPage)
 router.get('/category/add', categoryController.createPage)

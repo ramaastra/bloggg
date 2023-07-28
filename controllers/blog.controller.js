@@ -46,6 +46,8 @@ class BlogController {
       take: 10
     })
     const isAuthorized = JSON.stringify(blog.author) == JSON.stringify(req.user)
+    console.log("🚀 ~ file: blog.controller.js:49 ~ BlogController ~ detailPage=async ~ blog.author:", blog.author)
+    // console.log("🚀 ~ file: blog.controller.js:49 ~ BlogController ~ detailPage=async ~ isAuthorized:", isAuthorized)
 
     res.render('pages/blog/detail', {
       blog, otherBlogs, user: req.user, isAuthorized

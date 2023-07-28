@@ -10,13 +10,18 @@
     <h1 class="display-6 text-center">
       Edit Blog "<span class="fw-semibold"><%= blog.title %></span>"
     </h1>
-    <form class="mt-4 d-flex justify-content-between gap-md-4 flex-column flex-md-row">
+    <form
+      id="blog-form"
+      class="mt-4 d-flex justify-content-between gap-md-4 flex-column flex-md-row"
+      enctype="multipart/form-data"
+      action="/blog/<%= blog.id %>/edit" method="post"
+    >
       <div class="w-100 w-md-50">
         <div class="mb-3">
           <label for="blogTitle" class="form-label fw-semibold">Judul/Kategori</label>
           <div class="input-group">
-            <input id="blogTitle" type="text" class="form-control w-50" placeholder="Tuliskan judul blogmu" value="<%= blog.title %>">
-            <select class="form-select" id="blogCategory">
+            <input name="title" id="blogTitle" type="text" class="form-control w-50" placeholder="Tuliskan judul blogmu" value="<%= blog.title %>">
+            <select name="category" id="blogCategory" class="form-select" >
               <option value="" disabled>Kategori</option>
               <% categories.forEach(category => { %>
                 <% if(category.id == blog.category.id) { %>
@@ -34,17 +39,17 @@
         </div>
         <div class="mb-3 mb-md-0">
           <label for="blogBody" class="form-label fw-semibold">Isi Konten</label>
-          <textarea class="form-control" id="blogBody" rows="9" placeholder="Tuliskan isi blogmu"><%- blog.body %></textarea>
+          <textarea name="body" id="blogBody" class="form-control" rows="9" placeholder="Tuliskan isi blogmu" onchange="(e) => console.log('PIOIJ')"><%- blog.body %></textarea>
         </div>
       </div>
       <div class="w-100 w-md-50">
         <label for="img" class="form-label fw-semibold">Gambar</label>
         <img id="uploadPreview" height="270" class="mb-2 w-100 rounded object-fit-cover" src="/uploads/<%= blog.image %>">
-        <input name="img" type="file" accept="image/*" class="form-control" id="img">
+        <input name="img" id="img" type="file" accept="image/*" class="form-control" value="<%= blog.image %>">
       </div>
     </form>
     <div class="mt-4">
-      <button type="submit" class="btn btn-primary w-100">
+      <button type="submit" form="blog-form" class="btn btn-primary w-100">
         Perbarui Blog
       </button>
     </div>

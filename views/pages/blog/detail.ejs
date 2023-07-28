@@ -39,23 +39,48 @@
       <p class="text-body-tertiary">
         Ditulis oleh
         <span class="fw-semibold"><%= blog.author.name %></span>
+        •
+        <span><%= blog.createdAt.toLocaleDateString() %></span>
       </p>
       <img src="/uploads/<%= blog.image %>" alt="<%= blog.title %>" class="w-100 object-fit-cover rounded" height="400">
       <p class="mt-4">
         <%- blog.body.replace(/\n\n/g, "</p><p>") %>
       </p>
+      <span id="last-updated" class="text-body-tertiary">
+        <%= new Date().getDay() - blog.updatedAt.getDay() %>
+      </span>
     </div>
     <div id="other-blogs" class="p-3 card">
       <h2>Baca Juga</h2>
       <ul>
         <% otherBlogs.forEach(blog => { %>
           <li>
-            <a href="/blog/read/<%= blog.id %>"><%= blog.title %></a>
+            <a href="/blog/<%= blog.id %>/read"><%= blog.title %></a>
           </li>
         <% }) %>
       </ul>
     </div>
   </div>
+
+  <script>
+    const lastUpdatedElement = document.querySelector('#last-updated')
+    const lastUpdatedDifference = lastUpdatedElement.innerHTML
+    lastUpdatedElement.innerHTML =
+      '(Terakhir diperbarui '.concat(
+        lastUpdatedDifference == 0 ?
+          'hari ini'
+        : lastUpdatedDifference == 1 ?
+          'kemarin'
+        : lastUpdatedDifference < 7 ?
+          `${lastUpdatedDifference} hari lalu`
+        : lastUpdatedDifference < 30 ?
+          `${Math.floor(lastUpdatedDifference / 7)} minggu lalu`
+        : lastUpdatedDifference < 365 ?
+          `${Math.floor(lastUpdatedDifference / 30)} bulan lalu`
+        : `${Math.floor(lastUpdatedDifference / 365)} tahun lalu`,
+        ')'
+      )
+  </script>
 
   <%- include("../../setups/script") %>
 </body>

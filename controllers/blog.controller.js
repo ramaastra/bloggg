@@ -13,6 +13,20 @@ class BlogController {
     res.render('pages/blog/list', { blogs, user: req.user })
   }
 
+  static userListPage = async(req, res) => {
+    const blogs = await prisma.blog.findMany({
+      where: {
+        authorId: req.user.id
+      },
+      include: {
+        category: true,
+        author: true
+      }
+    })
+
+    res.render('pages/blog/userList', { blogs, user: req.user })
+  }
+
   static detailPage = async(req, res) => {
     const blog = await prisma.blog.findUnique({
       where: {

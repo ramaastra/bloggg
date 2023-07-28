@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <%- include("../../setups/head") %>
+
+  <style>
+    .category-label {
+      display: inline-block;
+      width: 50px;
+      border-radius: 5px;
+      color: white;
+      margin-top: 4px;
+    }
+
+    .table-responsive {
+      width: 100%;
+    }
+
+    @media only screen and (min-width: 768px) {
+      .table-responsive {
+        width: 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%- include("../../components/navbar", { user }) %>
+
+  <div class="container-fluid p-5">
+    <h1 class="display-6 text-center">
+      Blog Saya
+    </h1>
+    <div class="mt-4">
+      <div class="table-responsive mx-auto d-flex flex-column align-items-end">
+        <table class="table table-stripped">
+          <thead class="text-center">
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col" class="text-start">Judul</th>
+              <th scope="col">Kategori</th>
+              <th scope="col">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <% blogs.forEach((blog, index) => { %>
+              <tr>
+                <th scope="row"><%= index+1 %></th>
+                <td class="text-start"><%= blog.title %></td>
+                <td class="m-auto">
+                  <div class="category-label" style="background-color: <%= blog.category.labelColor %>;">
+                    <i class="bi <%= blog.category.icon %>"></i>
+                  </div>
+                </td>
+                <td class="d-flex gap-2 justify-content-center">
+                  <a href="/blog/<%= blog.id %>/edit" class="btn btn-sm btn-light">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                  <form action="/blog/<%= blog.id %>/delete" method="post">
+                    <button type="submit" class="btn btn-sm btn-light">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <a href="/blog/create" class="btn btn-outline-primary">
+          Buat Blog
+          <i class="bi bi-plus-circle"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <%- include("../../setups/script") %>
+</body>
+</html>

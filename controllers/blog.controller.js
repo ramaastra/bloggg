@@ -21,6 +21,9 @@ class BlogController {
       include: {
         category: true,
         author: true
+      },
+      orderBy: {
+        updatedAt: 'desc'
       }
     })
 
@@ -46,8 +49,6 @@ class BlogController {
       take: 10
     })
     const isAuthorized = JSON.stringify(blog.author) == JSON.stringify(req.user)
-    console.log("🚀 ~ file: blog.controller.js:49 ~ BlogController ~ detailPage=async ~ blog.author:", blog.author)
-    // console.log("🚀 ~ file: blog.controller.js:49 ~ BlogController ~ detailPage=async ~ isAuthorized:", isAuthorized)
 
     res.render('pages/blog/detail', {
       blog, otherBlogs, user: req.user, isAuthorized
@@ -78,6 +79,20 @@ class BlogController {
     else res.redirect(`/blog/${req.params.id}/read`)
   }
 
+  static async store(req, res) {
+    await prisma.blog.create({
+      data: {
+        title: req.body.title,
+        body: req.body.body.replace(/\r\n/g, '\n'),
+        image: req.file.filename,
+        categoryId: Number(req.body.category),
+        authorId: req.user.id
+      }
+    })
+
+    res.redirect('/my-blog')
+  }
+
   static async update(req, res) {
     const updatedBlog = {
       title: req.body.title,
@@ -95,6 +110,16 @@ class BlogController {
     })
 
     res.redirect(`/blog/${req.params.id}/read`)
+  }
+
+  static async delete(req, res) {
+    await prisma.blog.delete({
+      where: {
+        id: Number(req.params.id)
+      }
+    });
+
+    res.redirect('/my-blog')
   }
 }
 

@@ -4,11 +4,16 @@
   <%- include("../../setups/head") %>
 </head>
 <body>
-  <%- include("../../components/navbar") %>
+  <%- include("../../components/navbar", { user }) %>
 
   <div class="container-fluid p-5">
     <h1 class="display-6 text-center">Buat Blog Kerenmu</h1>
-    <form class="mt-4 d-flex justify-content-between gap-md-4 flex-column flex-md-row">
+    <form
+      id="blog-form"
+      class="mt-4 d-flex justify-content-between gap-md-4 flex-column flex-md-row"
+      enctype="multipart/form-data"
+      action="/blog" method="post"
+    >
       <div class="w-100 w-md-50">
         <div class="mb-3">
           <label for="blogTitle" class="form-label fw-semibold">Judul/Kategori</label>
@@ -36,7 +41,7 @@
       </div>
     </form>
     <div class="mt-4">
-      <button type="submit" class="btn btn-primary w-100">
+      <button type="submit" form="blog-form" class="btn btn-primary w-100">
         Unggah Blog
       </button>
     </div>

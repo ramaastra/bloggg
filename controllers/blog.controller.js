@@ -10,7 +10,7 @@ class BlogController {
       }
     })
 
-    res.render('pages/blog/list', { blogs })
+    res.render('pages/blog/list', { blogs, user: req.user })
   }
 
   static detailPage = async(req, res) => {
@@ -31,13 +31,16 @@ class BlogController {
       },
       take: 10
     })
+    const isAuthorized = JSON.stringify(blog.author) == JSON.stringify(req.user)
 
-    res.render('pages/blog/detail', { blog, otherBlogs })
+    res.render('pages/blog/detail', {
+      blog, otherBlogs, user: req.user, isAuthorized
+    })
   }
 
   static createPage = async(req, res) => {
     const categories = await prisma.category.findMany()
-    res.render('pages/blog/create', { categories })
+    res.render('pages/blog/create', { categories, user: req.user })
   }
 
   static editPage = async(req, res) => {
@@ -46,12 +49,17 @@ class BlogController {
         id: Number(req.params.id)
       },
       include: {
-        category: true
+        category: true,
+        author: true
       }
     })
     const categories = await prisma.category.findMany()
+    const isAuthorized = JSON.stringify(blog.author) == JSON.stringify(req.user)
 
-    res.render('pages/blog/edit', { blog, categories })
+    if(isAuthorized) res.render('pages/blog/edit', {
+      blog, categories, user: req.user
+    })
+    else res.redirect(`/blog/${req.params.id}/read`)
   }
 
   static async update(req, res) {

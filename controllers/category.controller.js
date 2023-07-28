@@ -4,11 +4,11 @@ const prisma = new PrismaClient()
 class CategoryController {
   static listPage = async(req, res) => {
     const categories = await prisma.category.findMany()
-    res.render('pages/category/list', { categories })
+    res.render('pages/category/list', { categories, user: req.user })
   }
 
   static createPage = async(req, res) => {
-    res.render('pages/category/create')
+    res.render('pages/category/create', { user: req.user })
   }
 
   static editPage = async(req, res) => {
@@ -17,11 +17,11 @@ class CategoryController {
         id: Number(req.params.id)
       }
     })
-    res.render('pages/category/edit', { category })
+    res.render('pages/category/edit', { category, user: req.user })
   }
   
   static async createPage(req, res) {
-    res.render("pages/category/add")
+    res.render("pages/category/add", { user: req.user })
   }
 
   static async store(req, res) {

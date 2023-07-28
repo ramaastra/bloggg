@@ -21,9 +21,37 @@
         <li class="nav-item">
           <a class="nav-link text-light" href="/category">Kategori</a>
         </li>
-        <li class="nav-item ms-0 mt-2 ms-sm-2 mt-sm-0">
-          <a href="/login" type="button" class="btn btn-outline-light">Masuk</a>
-        </li>
+        <% if(user) { %>
+          <li class="nav-item ms-0 mt-2 ms-sm-2 mt-sm-0">
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item text-end" href="#">Daftar Blog Saya</a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <form 
+                    class="dropdown-item text-end"
+                    style="cursor: pointer;"
+                    action="/logout" method="post" 
+                  >
+                    <button type="submit" class="text-danger border-0 bg-transparent">
+                      <%= user.name %>
+                      <i class="bi bi-box-arrow-right ms-1"></i>
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </li>
+        <% } else { %>
+          <li class="nav-item ms-0 mt-2 ms-sm-2 mt-sm-0">
+            <a href="/login" type="button" class="btn btn-outline-light">Masuk</a>
+          </li>
+        <% } %>
       </ul>
     </div>
   </div>

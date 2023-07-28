@@ -4,10 +4,30 @@
   <%- include("../../setups/head") %>
 </head>
 <body>
-  <%- include("../../components/navbar") %>
-  
+  <%- include("../../components/navbar", { user }) %>
+
   <div class="container-fluid p-5 d-flex justify-content-center">
-    <%- include("../../components/authenticationCard", { type: "login" }) %>
+    <div class="card" style="min-width: 30%;">
+      <h5 class="card-header display-6 fs-2 text-center px-4 py-3">
+        Login ke Akunmu
+      </h5>
+      <div class="card-body">
+        <form action="/login" method="post">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input name="username" id="username" type="text" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" id="password" type="password" class="form-control">
+          </div>
+          <div class="mb-3">
+            Belum punya akun? Daftar di <a href="/register">sini</a>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+      </div>
+    </div>
   </div>
 
   <%- include("../../setups/script") %>

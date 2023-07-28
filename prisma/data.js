@@ -2,19 +2,19 @@ const users = [
   {
     id: 1,
     username: 'johndoe_',
-    password: '',
+    password: 'a',
     name: 'John Doe'
   },
   {
     id: 2,
     username: 'janesmith_',
-    password: '',
+    password: 'a',
     name: 'Jane Smith'
   },
   {
     id: 3,
     username: 'davidjohnson_',
-    password: '',
+    password: 'a',
     name: 'David Johnson'
   }
 ]

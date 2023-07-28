@@ -1,25 +1,29 @@
+const { generateHash } = require('../lib/bcrypt')
+const { users, categories, blogs } = require('./data')
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
-const { users, categories, blogs } = require('./data')
 
 async function main() {
-  // users.forEach(async (user) => {
-  //   await prisma.user.create({
-  //     data: user
-  //   })
-  // })
+  for(let user of users) {
+    await prisma.user.create({
+      data: {
+        ...user,
+        password: await generateHash(user.password)
+      }
+    })
+  }
 
-  // categories.forEach(async (category) => {
-  //   await prisma.category.create({
-  //     data: category
-  //   })
-  // })
+  for(let category of categories) {
+    await prisma.category.create({
+      data: category
+    })
+  }
 
-  blogs.forEach(async (blog) => {
+  for(let blog of blogs) {
     await prisma.blog.create({
       data: blog
     })
-  })
+  }
 
   console.log("Data seeding was successful")
 }

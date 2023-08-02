@@ -48,8 +48,8 @@
       <p class="mt-4">
         <%- blog.body.replace(/\n\n/g, "</p><p>") %>
       </p>
-      <span id="last-updated" class="text-body-tertiary">
-        <%= new Date().getDay() - blog.updatedAt.getDay() %>
+      <span id="last-updated" class="text-body-tertiary d-none">
+        <%= blog.updatedAt %>
       </span>
     </div>
     <div id="other-blogs" class="p-3 card">
@@ -65,23 +65,30 @@
   </div>
 
   <script>
+    const DAYS_IN_MILISECONDS = 86400000
     const lastUpdatedElement = document.querySelector('#last-updated')
-    const lastUpdatedDifference = lastUpdatedElement.innerHTML
+    const lastUpdated = new Date(lastUpdatedElement.innerHTML)
+    const now = new Date()
+    const daysDifference = Math.abs((now - lastUpdated) / DAYS_IN_MILISECONDS)
+
     lastUpdatedElement.innerHTML =
       '(Terakhir diperbarui '.concat(
-        lastUpdatedDifference == 0 ?
-          'hari ini'
-        : lastUpdatedDifference == 1 ?
+        now.toDateString() === lastUpdated.toDateString() ?
+          lastUpdated.toTimeString().slice(0, 5)
+        : daysDifference < 2 ?
           'kemarin'
-        : lastUpdatedDifference < 7 ?
-          `${lastUpdatedDifference} hari lalu`
-        : lastUpdatedDifference < 30 ?
-          `${Math.floor(lastUpdatedDifference / 7)} minggu lalu`
-        : lastUpdatedDifference < 365 ?
-          `${Math.floor(lastUpdatedDifference / 30)} bulan lalu`
-        : `${Math.floor(lastUpdatedDifference / 365)} tahun lalu`,
+        : daysDifference < 7 ?
+          `${Math.floor(daysDifference)} hari lalu`
+        : daysDifference < 30 ?
+          `${Math.floor(daysDifference / 7)} minggu lalu`
+        : daysDifference < 365 ?
+          `${Math.floor(daysDifference / 30)} bulan lalu`
+        :
+          `${Math.floor(daysDifference / 365)} tahun lalu`,
         ')'
       )
+
+    lastUpdatedElement.classList.remove('d-none')
   </script>
 
   <%- include("../../setups/script") %>
